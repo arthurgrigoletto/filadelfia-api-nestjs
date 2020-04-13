@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
+import * as redisStore from 'cache-manager-redis-store';
 
 require('dotenv').config();
 
@@ -43,6 +44,14 @@ class ConfigService {
         timestamps: true,
         underscored: true,
       },
+    }
+  }
+
+  public getRedisConfig() {
+    return {
+      store: redisStore,
+      host: this.getValue('REDIS_HOST'),
+      port: this.getValue('REDIS_PORT')
     }
   }
 
