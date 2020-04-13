@@ -1,7 +1,7 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Get, Param, Res } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFile, Get, Param, Res, Delete } from '@nestjs/common';
 import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileService } from '../services/file.service';
+import { FileService } from './file.service';
 import multerConfig from '@config/multer';
 
 @Controller('files')
@@ -21,6 +21,11 @@ export class FileController {
     })
 
     return fileCreated;
+  }
+
+  @Delete(':fileId')
+  public async destroyFile(@Param('fileId') fileId: string) {
+    await this.fileService.destroy(fileId);
   }
 
   @Get('/:fileName')

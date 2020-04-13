@@ -1,21 +1,15 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize'
-import { BookModule } from './modules/book.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { BookModule } from './book/book.module';
 import { configService } from './services/config.service';
 import { AppController } from './app.controller';
-import { FileModule } from './modules/file.module';
-import { StockModule } from './modules/stock.module';
+import { FileModule } from './file/file.module';
+import { StockModule } from './stock/stock.module';
 
-import { Book } from './models/book';
-import { File } from './models/file';
-import { Stock } from './models/stock';
 
 @Module({
   imports: [
-    SequelizeModule.forRoot({
-      ...configService.getSequelizeConfig(),
-      models: [Book, File, Stock]
-    }),
+    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     BookModule,
     FileModule,
     StockModule

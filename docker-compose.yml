@@ -14,3 +14,11 @@ services:
       - POSTGRES_PORT=5433
     ports:
       - "5433:5432"
+  redis:
+    image: redis:5.0.6-alpine
+    restart: always
+    tty: true
+    environment:
+      - REDIS_PORT=6380
+    ports:
+      - "6380:6379"
